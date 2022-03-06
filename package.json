@@ -1,0 +1,24 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-donati/note-taker.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/a-donati/note-taker/issues"
+  },
+  "homepage": "https://github.com/a-donati/note-taker#readme",
+  "description": ""
+}
