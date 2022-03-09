@@ -3,7 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const notes = require("./db/db.json");
 const uuid = require("uuid");
-const { readFromFile, readAndAppend } = require("./helpers/fsUtils");
 
 const PORT = process.env.PORT || 3001;
 
@@ -30,7 +29,6 @@ app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`);
 });
 
-
 // API Routes
 app.get("/api/notes", (req, res) => {
     // send db.json file to client
@@ -38,55 +36,62 @@ app.get("/api/notes", (req, res) => {
     // readFromFile("./Develop/db/db.json").then((data) =>
     //     res.json(JSON.parse(data))
     res.sendFile(path.join(__dirname, "./db/db.json"));
-
-
 });
+
 
 // post request to store a new note
 app.post("/api/notes", (req, res) => {
-    const { title, text } = req.body;
-    console.log(req.body);
-
-    if (req.body) {
+    // read contents of db.json
+    fs.readFile('./db/db.json', 'utf8', (err, data) =>{
+        if(err){
+            console.log('Error');
+        } else{
+        // parse the db.json data - create array of objects
+        const parsedDb = JSON.parse(data);
+        // creates newNote with request body and title, id is uniquely created
         const newNote = {
-            title,
-            text,
-            id: uuid.v4(),
-        };
-
-        readAndAppend(newNote, "./db/db.json");
-        const response = {
-            status: "success",
-            body: newNote,
-        };
-
-        res.json(response);
-    } else {
-        res.error(`Error`);
-    }
-    // // obtain existing notes
-    // fs.readFile('./db/db.json', 'utf8', (err, data) =>{
-    //     if(err){
-    //         console.log('Error');
-    //     } else{
-    //     const parsedDb = JSON.parse(data);
-
-    //     parsedDb.push(newNote)
-
-    //         // write updated note back to the file
-    //     fs.writeFile('./Develop/db/db.json', JSON.stringify(parsedDb), (err)=>{
-    //         if(err){
-    //             console.log('error');
-    //         } console.log(parsedDb)
-    //     })
-    //     res.send('Note has been saved')
-    // }});
+            title: req.body.title,
+            text: req.body.text,
+            id: uuid.v4()
+        }
+        // push newNote to the parsedDb array of notes
+        parsedDb.push(newNote);
+        // convert parsedDb into JSON
+        const newDB = JSON.stringify(parsedDb);
+        // write updated notes back to the file
+        fs.writeFile('./db/db.json', newDB, (err)=>{
+            if(err){
+                console.log('error');
+            } console.log(parsedDb)
+        })
+        // response to resolve post req
+        res.send('Note has been saved');
+    }});
 });
 
-
-// app.delete('/api/notes/:id', (req, res) => {
-//     const noteID = req.params.id;
-//     fs.readFromFile('./db/db.json', (req, res) => {
-
-//     })
-// })
+// delete request
+app.delete('/api/notes/:id', (req, res) => {
+    // get note's ID from request parameters
+    const noteID = req.params.id;
+    // read existing json file containing all notes
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if(err){
+            console.log('Error');
+        }
+        // parse the db.json contents into array of objects
+        const parsedDb = JSON.parse(data);
+        // creates a new array with deleted note to be filtered out by id
+        const newData = parsedDb.filter((note) => note.id !== noteID);
+        // convert array back to JSON
+        const newDB = JSON.stringify(newData);
+        // use fs to write new array back into db.json file
+        fs.writeFile('./db/db.json', newDB, (err)=> {
+            if(err){
+                console.log('error');
+            }
+            console.log('File updated successfully.');
+        });
+        // send response for delete request
+        res.send('Note has been deleted.');
+    })
+})
