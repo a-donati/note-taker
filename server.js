@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const notes = require("./Develop/db/db.json");
+const notes = require("./db/db.json");
 const uuid = require("uuid");
 const { readFromFile, readAndAppend } = require("./helpers/fsUtils");
 
@@ -19,11 +19,11 @@ app.use(express.static("public"));
 // html routes
 // GET route for homepage
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 // GET route for notes page
 app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 // listen at port
 app.listen(PORT, () => {
@@ -34,10 +34,12 @@ app.listen(PORT, () => {
 // API Routes
 app.get("/api/notes", (req, res) => {
     // send db.json file to client
-    console.info(`${req.method} request received for notes`);
-    readFromFile("./Develop/db/db.json").then((data) =>
-        res.json(JSON.parse(data))
-    );
+    // console.info(`${req.method} request received for notes`);
+    // readFromFile("./Develop/db/db.json").then((data) =>
+    //     res.json(JSON.parse(data))
+    res.sendFile(path.join(__dirname, "./db/db.json"));
+
+
 });
 
 // post request to store a new note
@@ -52,7 +54,7 @@ app.post("/api/notes", (req, res) => {
             id: uuid.v4(),
         };
 
-        readAndAppend(newNote, "./Develop/db/db.json");
+        readAndAppend(newNote, "./db/db.json");
         const response = {
             status: "success",
             body: newNote,
@@ -80,3 +82,11 @@ app.post("/api/notes", (req, res) => {
     //     res.send('Note has been saved')
     // }});
 });
+
+
+// app.delete('/api/notes/:id', (req, res) => {
+//     const noteID = req.params.id;
+//     fs.readFromFile('./db/db.json', (req, res) => {
+
+//     })
+// })
