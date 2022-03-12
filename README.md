@@ -4,7 +4,13 @@
 
 ## Description
 
+A note taking application that can be used to create and store plain text notes. The front end is built with HTML, CSS, and JavaScript. The backend uses Node.js with Express.  
 
+## Features
+
+* Backend data persistence 
+* Ability to create and delete notes
+* Unique ID generated for each note using [uuid](https://www.npmjs.com/package/uuid)
 
 ## Table of Contents
 
@@ -17,14 +23,18 @@
 
 ## Installation
 
+From GitHub, fork or clone the repo. The user must have Node.js installed. Once forked, run `npm i` from the root directory to install required dependencies.
 
+To deploy to Heroku, run the command `heroku create` then push the code to the created Heroku instance.
 
 ## Usage
 
+After clicking "Get Started" on the homepage, to add a new note click the plus sign in the top right corner and use the save button in the top right to save the notes to the JSON database. Clicking the red trashcan icon will delete the note.
 
-## Refrences
+## References
 
-
+* [Express](https://expressjs.com/)
+* [uuid](https://www.npmjs.com/package/uuid)
 
 ## License
 
