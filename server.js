@@ -4,7 +4,7 @@ const fs = require("fs");
 const notes = require("./db/db.json");
 const uuid = require("uuid");
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -24,7 +24,6 @@ app.get("/", (req, res) => {
 app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
-
 // listen at port
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`);
@@ -59,7 +58,7 @@ app.post("/api/notes", (req, res) => {
             fs.writeFile('./db/db.json', newDB, (err) => {
                 if (err) {
                     console.log('error');
-                } console.log(parsedDb)
+                }
             })
             // response to resolve post req
             res.send('Note has been saved');

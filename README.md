@@ -29,7 +29,8 @@ To deploy to Heroku, run the command `heroku create` then push the code to the c
 
 ## Usage
 
-After clicking "Get Started" on the homepage, to add a new note click the plus sign in the top right corner and use the save button in the top right to save the notes to the JSON database. Clicking the red trashcan icon will delete the note.
+After clicking "Get Started" on the homepage, to add a new note click the plus sign in the top right corner and enter desired note title and note text. When finished, click the save icon in the top right to save the notes to the JSON database. Clicking the red trashcan icon will delete the note.
+![](./public/assets/note-video.gif)
 
 ## References
 
