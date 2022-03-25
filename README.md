@@ -16,7 +16,7 @@ A note taking application that can be used to create and store plain text notes.
 
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Refrences](#Refrences)
+- [References](#Refrences)
 - [License](#license)
 - [Contributing](#Contributing)
 - [Questions](#Questions)
