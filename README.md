@@ -73,8 +73,3 @@ This application is covered under MIT License
 ## Contributing
 
 Please contact the author to be added as a collaborator to this project.
-
-## Questions
-
-- Contact me via [email](mailto:angeladonati93@gmail.com)
-- View my GitHub [profile](http://www.github.com/a-donati)
